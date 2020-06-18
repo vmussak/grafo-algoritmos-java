@@ -36,12 +36,12 @@ public class Caminho {
     }
     
     public void mostrarCaminho() {
-        System.out.print("INICIO");
-        for(int i = 0; i < caminhoPercorrido.size(); i++) {
-            System.out.print(" -> " + caminhoPercorrido.get(i).getRotulo());
+        for(int i = caminhoPercorrido.size() - 1; i > 0 ; i--) {
+            System.out.print(caminhoPercorrido.get(i).getRotulo() + " -> ");
         }
-        
-        System.out.println(" -> " + destino.getRotulo());
+
+        System.out.print(destino.getRotulo());
+        System.out.println(" (" + this.getCusto() + ") ");
     }
     
 }

@@ -140,7 +140,7 @@ public class Grafo {
         int matrizAdjacencia[][] = new int[this.quantidadeVertices()][this.quantidadeVertices()]; 
         //inicializando lista
         for(int i = 0; i < this.quantidadeVertices(); i++) {
-            for(int j = 0; this.quantidadeVertices() < 1; j++){
+            for(int j = 0; j < this.quantidadeVertices(); j++){
                 matrizAdjacencia[i][j] = 0;
             }
         }
@@ -239,8 +239,6 @@ public class Grafo {
         
         Collections.sort(this.arestas, new ArestaComparator());
         
-        Conjunto c = conjuntos.get(0);
-        
         Grafo novoGrafo = new Grafo(this.orientado);
         novoGrafo.importarVertices(this.vertices);
         int contArestas = 0;
@@ -282,16 +280,19 @@ public class Grafo {
         boolean visitas[] = new boolean[this.quantidadeVertices()];
         int distancia[] = new int[this.quantidadeVertices()];
         int custos[][] = this.matrizDeCustoAdjacencia();
+        int caminho[] = new int[this.quantidadeVertices()];
         ArrayList<Caminho> retorno = new ArrayList<Caminho>();
         
         for(int i = 0; i < this.quantidadeVertices(); i++) {
             visitas[i] = false;
             distancia[i] = Integer.MAX_VALUE;
             retorno.add(new Caminho(vertices.get(i)));
+            caminho[i] = -1;
         }
         
         visitas[indice] = true;
         distancia[indice] = 0;
+        caminho[indice] = 0;
         
         Vertice v = vertices.get(indice);
         
@@ -310,13 +311,15 @@ public class Grafo {
             }
 
             visitas[menor] = true;
+            if(caminho[menor] == -1)
+                caminho[menor] = indice;
 
             for(int i = 0; i < this.quantidadeVertices(); i++) {
                 if(visitas[i] == false) {
                     if(distancia[i] > somar(distancia[menor], custos[menor][i])) {
-                        retorno.get(i).adicionarCaminhoPercorrido(vertices.get(menor));
+                        caminho[i] = menor;
                         distancia[i] = somar(distancia[menor], custos[menor][i]);
-                    }
+                    } 
                 }
             }
             
@@ -325,6 +328,11 @@ public class Grafo {
         
         for(int i = 0; i < this.quantidadeVertices(); i++) {
             retorno.get(i).setCusto(distancia[i]);
+            int c = i;
+            do {
+                retorno.get(i).adicionarCaminhoPercorrido(vertices.get(c));
+                c = caminho[c];
+            } while(c != 0);
         }
         
         return retorno;

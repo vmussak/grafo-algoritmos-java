@@ -12,6 +12,8 @@ public class Main {
         Vertice v6 = new Vertice("V6");
         Vertice v7 = new Vertice("V7");
         Vertice v8 = new Vertice("V8");
+        //Vertice v9 = new Vertice("V9");
+        
         
         Grafo grafo = new Grafo(true);
         grafo.adicionarVertice(v1);
@@ -22,6 +24,7 @@ public class Main {
         grafo.adicionarVertice(v6);
         grafo.adicionarVertice(v7);
         grafo.adicionarVertice(v8);
+        //grafo.adicionarVertice(v9);
         
         /*grafo.conectar(v1, v6);
         grafo.conectar(v1, v4);
@@ -36,6 +39,10 @@ public class Main {
         grafo.conectar(v4, v5);
         
         grafo.conectar(v5, v6);*/
+        
+        //grafo.desenharMatrizAdjacencia();
+        
+        //grafo.buscaEmProfundidade(0);
         
         /*grafo.conectar(v1, v2, 16);
         grafo.conectar(v1, v6, 21);
@@ -75,6 +82,10 @@ public class Main {
        grafo.conectar(v7, v8, 100);
        
        grafo.conectar(v8, v1, 170);
+       
+       //grafo.conectar(v9, v1, 13);
+       
+       //grafo.buscaEmLargura(0);
        
        ArrayList<Caminho> c = grafo.caminhoMaisCurtoDijkstra(4);
        for(Caminho item : c) {
